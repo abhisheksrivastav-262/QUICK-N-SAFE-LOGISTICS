@@ -61,10 +61,42 @@ function ContactDetailsAndForm() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.currentTarget.reset();
-    toast.success("Thank you! Your enquiry has been noted.", {
-      description: `For a faster response, please call us at ${PHONE}.`,
-    });
+    
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name")?.toString().trim() || "";
+    const phone = formData.get("phone")?.toString().trim() || "";
+    const email = formData.get("email")?.toString().trim() || "";
+    const date = formData.get("date")?.toString().trim() || "";
+    const from = formData.get("from")?.toString().trim() || "";
+    const to = formData.get("to")?.toString().trim() || "";
+    const message = formData.get("message")?.toString().trim() || "";
+
+    if (!name || !phone || !from || !to) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const whatsappNumber = "919433222282";
+    const text = `Hello QUICK N SAFE LOGISTICS,
+
+I would like to request a free quote.
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email || "N/A"}
+Moving From: ${from}
+Moving To: ${to}
+Preferred Moving Date: ${date || "N/A"}
+Message: ${message || "N/A"}
+
+Please provide me with a quotation.
+
+Thank you.`;
+
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
+    
+    window.open(whatsappUrl, "_blank");
   };
 
   return (

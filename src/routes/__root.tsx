@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
@@ -130,6 +131,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         <Toaster />
+        <WhatsAppButton />
         <Header />
         <main className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
